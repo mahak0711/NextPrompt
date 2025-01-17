@@ -5,16 +5,16 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Navbar = () => {
-  const isUserLoggedIn = false;
+  const {data:session}=useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
       setProviders(response);
     };
-    setProviders();
+    setUpProviders();
   }, []);
 
   return (
@@ -30,9 +30,10 @@ const Navbar = () => {
         <p className="logo_text">NextPrompt</p>
       </Link>
 
+
       {/* Desktop */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user?(
           <div className="flex gap-3 md:gap-5 ">
             <Link href="/create-prompt" className="black_btn">
               Create Post
@@ -43,7 +44,7 @@ const Navbar = () => {
 
             <Link href="/profile">
               <Image
-                src="/assets/images/NextPrompt.svg"
+                src={session?.user.image}
                 width={40}
                 height={40}
                 className="rounded-full"
@@ -71,10 +72,10 @@ const Navbar = () => {
       {/* mobile */}
 
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/NextPrompt.svg"
+              src={session?.user.image}
               width={40}
               height={40}
               className="rounded-full"

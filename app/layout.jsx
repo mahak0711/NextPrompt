@@ -1,25 +1,28 @@
-import '@/styles/globals.css'
-import Navbar from '@/components/Navbar'
-import Provider from '@/components/Provider'
-export const metadata = {
-  title: 'NextPrompt',
-  description: 'Discover and share prompts',
-}
+import "@/styles/globals.css";
 
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body>
-        <Provider>
+import Navbar from "@/components/Navbar";
+import Provider from "@/components/Provider";
+
+export const metadata = {
+  title: "Next Prompt",
+  description: "Discover & Share AI Prompts",
+};
+
+const RootLayout = ({ children }) => (
+  <html lang='en'>
+    <body>
+      <Provider>
         <div className='main'>
-        <div className='gradient' />
+          <div className='gradient' />
         </div>
+
         <main className='app'>
-          <Navbar/>
-        {children}
+          <Navbar />
+          {children}
         </main>
-        </Provider>
-        </body>
-    </html>
-  )
-}
+      </Provider>
+    </body>
+  </html>
+);
+
+export default RootLayout;
